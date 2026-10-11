@@ -62,10 +62,26 @@ export class OTSBridge {
     }
     throw new Error(`No healthy RPC for ${chain}: ${JSON.stringify(tried)}`);
   }
+  /** Candidate URLs: healthy ones from the rpc-health snapshot (fastest first), then blockchainlab-mcp defaults. */
+  async rpcCandidates(chain) {
+    if (!CHAINS[chain]) throw new Error(`Unsupported chain ${chain}`);
+    const snap = await this.api.dataset("rpc-health");
+    const rows = snap.data.filter((r) => r.chain === chain && r.healthy).sort((a, b) => (a.latency_ms ?? 1e9) - (b.latency_ms ?? 1e9));
+    return [...new Set([...rows.map((r) => r.url), ...CHAINS[chain].rpcs])];
+  }
+  /** JSON-RPC with failover: preferred URL first, then every other candidate; backs off on 429/5xx. */
   async rpc(chain, method, params = []) {
-    const url = this._rpcCache.get(chain) ?? (await this.healthyRpc(chain)).url;
-    try { return await rawRpc(url, method, params); }
-    catch (e) { this._rpcCache.delete(chain); return rawRpc((await this.healthyRpc(chain)).url, method, params); }
+    const pref = this._rpcCache.get(chain);
+    const urls = [...new Set([...(pref ? [pref] : []), ...(await this.rpcCandidates(chain))])];
+    let last;
+    for (let pass = 0; pass < 2; pass++) {
+      for (const url of urls) {
+        try { const r = await rawRpc(url, method, params); this._rpcCache.set(chain, url); return r; }
+        catch (e) { last = e; if (/execution reverted|invalid argument|insufficient/i.test(String(e.message))) throw e; }
+      }
+      await new Promise((s) => setTimeout(s, 1500));
+    }
+    throw last;
   }
   async call(chain, to, data) { return this.rpc(chain, "eth_call", [{ to, data }, "latest"]); }
 
@@ -106,14 +122,14 @@ export class OTSBridge {
   async payoutCost(chain = "base") {
     const token = USDC[chain]; if (!token) throw new Error(`No USDC for ${chain}`);
     const head = Number(await this.rpc(chain, "eth_blockNumber"));
-    const span = chain === "ethereum" ? 3 : 15;
+    const span = chain === "ethereum" ? 10 : 30;
     const logs = await this.rpc(chain, "eth_getLogs", [{ address: token, topics: [TRANSFER_TOPIC], fromBlock: ethers.toQuantity(head - span), toBlock: ethers.toQuantity(head) }]);
     const recipient = ethers.Wallet.createRandom().address; // fresh address = worst-case (new balance slot)
     let sender = null, gas = null;
     const seen = new Set();
     for (const l of logs.slice().reverse()) {
       const from = ethers.getAddress("0x" + l.topics[1].slice(26)); if (seen.has(from)) continue; seen.add(from);
-      if (seen.size > 12) break;
+      if (seen.size > 40) break;
       try {
         if ((await this.rpc(chain, "eth_getCode", [from, "latest"])) !== "0x") continue;
         const bal = BigInt(await this.call(chain, token, ERC20.encodeFunctionData("balanceOf", [from])));

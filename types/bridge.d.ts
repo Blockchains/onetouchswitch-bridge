@@ -27,6 +27,7 @@ export interface Snapshot { generated_at: string; version: string; gbp_usd: Reco
 export declare class OTSBridge {
   constructor(opts?: { apiBase?: string; otsSite?: string });
   healthyRpc(chain?: Chain): Promise<HealthyRpc>;
+  rpcCandidates(chain: Chain): Promise<string[]>;
   rpc(chain: Chain, method: string, params?: unknown[]): Promise<any>;
   call(chain: Chain, to: string, data: string): Promise<string>;
   gbpUsd(chain?: PayoutChain): Promise<GbpUsd>;
