@@ -1,0 +1,31 @@
+{
+  "name": "onetouchswitch-bridge",
+  "version": "0.1.0",
+  "description": "Blockchain Lab blocks wired for onetouchswitch.com (touch.grok.me): Chainlink GBP/USD, stablecoin payout rails, OFAC payout-address screening, healthy RPC, live payout cost in GBP, payout tx verification, OTS site search. Typed JS client + MCP server + static JSON API on GitHub Pages.",
+  "type": "module",
+  "main": "./src/bridge.js",
+  "types": "./types/bridge.d.ts",
+  "exports": {
+    ".": { "types": "./types/bridge.d.ts", "default": "./src/bridge.js" },
+    "./package.json": "./package.json"
+  },
+  "bin": { "ots-mcp": "bin/ots-mcp.js" },
+  "files": ["src", "bin", "types", "README.md", "LICENSE"],
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build:site": "node scripts/build-site.mjs",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "npm run typecheck && node --test test/"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.0",
+    "blockchainlab-mcp": "github:Blockchains/blockchainlab-mcp",
+    "blockchainlab-sdk": "github:Blockchains/blockchainlab-sdk",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": { "typescript": "5.6.3", "@types/node": "^22.7.0" },
+  "repository": { "type": "git", "url": "git+https://github.com/Blockchains/onetouchswitch-bridge.git" },
+  "homepage": "https://blockchains.github.io/onetouchswitch-bridge/",
+  "author": "Blockchain Lab (https://blockchainlab.com)",
+  "license": "MIT"
+}

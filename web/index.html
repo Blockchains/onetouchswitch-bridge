@@ -1,0 +1,31 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>onetouchswitch-bridge — live Blockchain Lab blocks for onetouchswitch.com</title>
+<meta name="description" content="Live demo of the onetouchswitch.com x Blockchain Lab bridge: Chainlink GBP/USD, stablecoin payout rails, USDC payout cost in GBP, OFAC payout-address screening, payout receipt check.">
+<link rel="canonical" href="https://blockchains.github.io/onetouchswitch-bridge/">
+<style>
+:root{--bg:#12202B;--card:#1a2d3b;--fg:#eef3f6;--mut:#9fb3c2;--acc:#5eead4;--bad:#f87171;--ok:#4ade80;--bd:#27435a}
+*{box-sizing:border-box}body{margin:0;font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg)}
+main{max-width:1040px;margin:auto;padding:24px}h1{font-size:28px;margin:.2em 0}a{color:var(--acc)}.mut{color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px}
+.big{font-size:30px;font-weight:700}code{background:#0d1821;padding:2px 6px;border-radius:4px;font-size:13px;word-break:break-all}
+input{width:100%;padding:9px;border-radius:8px;border:1px solid var(--bd);background:#0d1821;color:var(--fg)}button{margin-top:8px;padding:8px 14px;border:0;border-radius:8px;background:var(--acc);color:#062;font-weight:700;cursor:pointer}
+table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:5px;border-bottom:1px solid var(--bd);text-align:left}.ok{color:var(--ok)}.bad{color:var(--bad)}pre{white-space:pre-wrap;font-size:12px}
+</style></head><body><main>
+<h1>onetouchswitch-bridge</h1>
+<p class="mut">Live data for <a href="https://onetouchswitch.com/">onetouchswitch.com</a> partner &amp; publisher payouts, built from <a href="https://github.com/Blockchains">Blockchains</a> blocks (blockchainlab-api, -sdk, -mcp, -tools, -lens, -index). Snapshot refreshed every 3 h by GitHub Actions; the buttons below call live endpoints from your browser. Not financial advice.</p>
+<p class="mut" id="gen">Loading <code>v1/ots.json</code>…</p>
+<div class="grid">
+ <div class="card"><h3>GBP/USD (Chainlink)</h3><div class="big" id="fx">—</div><div class="mut" id="fxm"></div><button id="fxlive">Read live on-chain now</button><div id="fxlivev" class="mut"></div></div>
+ <div class="card"><h3>Cost to pay a partner 1 USDC</h3><table id="cost"></table><div class="mut">eth_estimateGas from a real recent sender to a fresh address + fee history; Base includes L1 data-fee upper bound.</div></div>
+ <div class="card"><h3>Healthy RPC</h3><table id="rpc"></table><div class="mut">Candidates from blockchainlab-api <code>rpc-health</code>, verified live.</div></div>
+</div>
+<div class="grid" style="margin-top:16px">
+ <div class="card"><h3>Screen a payout address (OFAC)</h3><input id="addr" placeholder="0x… address"><button id="scr">Screen</button><div id="scrv"></div><div class="mut">OFAC SDN digital-currency list only — UK OFSI name screening still required.</div></div>
+ <div class="card"><h3>Check a payout receipt (Base)</h3><input id="tx" placeholder="basescan.org/tx/0x… or tx hash"><button id="chk">Check</button><div id="chkv"></div></div>
+</div>
+<div class="card" style="margin-top:16px"><h3>Stablecoin payout rails</h3><table id="rails"></table></div>
+<div class="card" style="margin-top:16px"><h3>Static API (CORS *)</h3><ul id="eps"></ul><p class="mut">Integration guide: <a href="https://github.com/Blockchains/onetouchswitch-bridge/blob/main/docs/INTEGRATION.md">docs/INTEGRATION.md</a> · MCP: <code>npx -y github:Blockchains/onetouchswitch-bridge</code> (bin <code>ots-mcp</code>)</p></div>
+<p class="mut">Built by <a href="https://blockchainlab.com/?utm_source=onetouchswitch-bridge">Blockchain Lab</a>. Sources: Chainlink, DefiLlama, OFAC SDN via 0xB10C, public RPCs.</p>
+</main>
+<script src="https://blockchains.github.io/blockchainlab-lens/extension/detect.js"></script>
+<script src="demo.js"></script></body></html>

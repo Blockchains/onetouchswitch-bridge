@@ -1,0 +1,31 @@
+name: CI
+on:
+  push:
+  pull_request:
+  schedule: [{ cron: "41 6 * * *" }]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  secrets:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - run: |
+          curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz | tar xz gitleaks
+          ./gitleaks git --no-banner --redact .
+  test:
+    name: Typecheck + live tests (client, MCP stdio)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm test || (echo "::warning::retrying once (live upstreams)"; sleep 20; npm test)
+      - name: blocks.json validates against the org schema
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/Blockchains/.github/main/docs/blocks.schema.json -o /tmp/blocks.schema.json
+          npx -y ajv-cli@5 validate --spec=draft2020 -c ajv-formats -s /tmp/blocks.schema.json -d blocks.json

@@ -1,0 +1,21 @@
+# onetouchswitch-bridge
+
+> Live Blockchain Lab blocks for onetouchswitch.com (UK broadband comparison, built on touch.grok.me): Chainlink GBP/USD, stablecoin payout rails, USDC payout cost in GBP, OFAC payout-address screening, healthy RPC, payout receipt checks, OTS sitemap search. Read-only, keyless, CORS JSON on GitHub Pages; JS client; MCP server.
+
+## API (CORS *, refreshed every 3h)
+- [Catalogue](https://blockchains.github.io/onetouchswitch-bridge/v1/index.json)
+- [Snapshot](https://blockchains.github.io/onetouchswitch-bridge/v1/ots.json): gbp_usd, payout_rails, rpc, payout_cost
+- [GBP/USD](https://blockchains.github.io/onetouchswitch-bridge/v1/gbp-usd.json)
+- [Payout cost](https://blockchains.github.io/onetouchswitch-bridge/v1/payout-cost.json)
+- [Payout rails](https://blockchains.github.io/onetouchswitch-bridge/v1/payout-rails.json)
+- [OFAC EVM addresses](https://blockchains.github.io/onetouchswitch-bridge/v1/sanctioned-evm.json)
+- [OTS pages](https://blockchains.github.io/onetouchswitch-bridge/v1/ots-pages.json)
+
+## Docs
+- [README](https://github.com/Blockchains/onetouchswitch-bridge/blob/main/README.md)
+- [Integration guide](https://github.com/Blockchains/onetouchswitch-bridge/blob/main/docs/INTEGRATION.md)
+- [Fit audit](https://github.com/Blockchains/onetouchswitch-bridge/blob/main/docs/FIT.md)
+- [AGENTS.md](https://github.com/Blockchains/onetouchswitch-bridge/blob/main/AGENTS.md)
+
+## MCP
+- npx -y github:Blockchains/onetouchswitch-bridge — tools: ots_gbp_usd, ots_payout_rails, ots_payout_cost, ots_healthy_rpc, ots_screen_payout_address, ots_verify_payout_tx, ots_site_search, ots_snapshot
