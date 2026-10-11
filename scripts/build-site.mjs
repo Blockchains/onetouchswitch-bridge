@@ -28,7 +28,7 @@ w("ots-pages.json", { generated_at: snap.generated_at, ...pages, sections });
 w("provenance.json", await b.feedInterfaceProvenance());
 
 const files = readdirSync(out + "v1").filter((f) => f.endsWith(".json") && f !== "index.json");
-w("index.json", { name: "onetouchswitch-bridge static API", version: VERSION, generated_at: snap.generated_at, cors: "GitHub Pages serves Access-Control-Allow-Origin: *", refresh: "every 3 hours via GitHub Actions", endpoints: files.map((f) => `${BASE}/v1/${f}`), docs: "https://github.com/Blockchains/onetouchswitch-bridge/blob/main/docs/INTEGRATION.md" });
+w("index.json", { name: "onetouchswitch-bridge static API", scope: "provider/partner settlement backend for One Touch Switch (back office). Not for customers; never loaded by the consumer comparison app.", version: VERSION, generated_at: snap.generated_at, cors: "GitHub Pages serves Access-Control-Allow-Origin: *", refresh: "every 3 hours via GitHub Actions", endpoints: files.map((f) => `${BASE}/v1/${f}`), docs: "https://github.com/Blockchains/onetouchswitch-bridge/blob/main/docs/INTEGRATION.md" });
 for (const f of ["index.html", "demo.js"]) copyFileSync(new URL(`../web/${f}`, import.meta.url), out + f);
 writeFileSync(out + ".nojekyll", "");
 console.log("built", files.length + 1, "endpoints;", snap.generated_at);

@@ -3,7 +3,7 @@
   "schema_version": "1.0",
   "name": "onetouchswitch-bridge",
   "repo": "Blockchains/onetouchswitch-bridge",
-  "summary": "Blockchain Lab blocks wired for onetouchswitch.com (touch.grok.me): Chainlink GBP/USD, stablecoin payout rails, live USDC payout cost in GBP, OFAC payout-address screening, healthy RPC, payout receipt checks, OTS sitemap search. Typed JS client, MCP server and a CORS static JSON API on Pages.",
+  "summary": "Provider/partner settlement backend for onetouchswitch.com (OTS back office; never in the consumer journey), built from Blockchain Lab blocks: Chainlink GBP/USD, stablecoin payout rails, live USDC payout cost in GBP, OFAC payout-address screening, healthy RPC, payout receipt checks, OTS sitemap search. Typed JS client, MCP server and a CORS static JSON API on Pages.",
   "kind": ["library", "mcp-server", "http-api", "web-app", "automation"],
   "stability": "beta",
   "version": "0.1.0",

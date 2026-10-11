@@ -1,7 +1,7 @@
 {
   "name": "onetouchswitch-bridge",
   "version": "0.1.0",
-  "description": "Blockchain Lab blocks wired for onetouchswitch.com (touch.grok.me): Chainlink GBP/USD, stablecoin payout rails, OFAC payout-address screening, healthy RPC, live payout cost in GBP, payout tx verification, OTS site search. Typed JS client + MCP server + static JSON API on GitHub Pages.",
+  "description": "Provider/partner settlement backend for onetouchswitch.com (OTS back office, never customers), built from Blockchain Lab blocks: Chainlink GBP/USD, stablecoin payout rails, OFAC payout-address screening, healthy RPC, live payout cost in GBP, payout tx verification, OTS site search. Typed JS client + MCP server + static JSON API on GitHub Pages.",
   "type": "module",
   "main": "./src/bridge.js",
   "types": "./types/bridge.d.ts",
@@ -15,7 +15,7 @@
   "scripts": {
     "build:site": "node scripts/build-site.mjs",
     "typecheck": "tsc -p tsconfig.json",
-    "test": "npm run typecheck && node --test --test-concurrency=1 test/bridge.test.mjs test/mcp.test.mjs"
+    "test": "npm run typecheck && node --test --test-concurrency=1 test/scope.test.mjs test/bridge.test.mjs test/mcp.test.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.0",

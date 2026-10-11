@@ -2,7 +2,7 @@
 
 **What onetouchswitch.com is today** (live crawl, 234 sitemap URLs): an independent UK broadband comparison and switching-guidance site built by Grok Build (touch.grok.me). It has address-based compare/availability pages, provider and city pages, guides, a blog, consumer tools (`/uk/tools/*`), and B2B pages (`/for-partners`, `/for-providers`, `/for-publishers`, `/contact-sales`). It has no `/api`, no `llms.txt`, and no on-chain features.
 
-**Core rule:** consumer broadband pages stay crypto-free. UK cryptoasset financial-promotion rules make crypto content on a consumer comparison site a liability, and it does nothing for broadband users. On-chain blocks only fit the **B2B payout and settlement** side (partners, publishers, affiliates) and the **agent/MCP** surface.
+**Core rule:** consumer broadband pages stay crypto-free. UK cryptoasset financial-promotion rules make crypto content on a consumer comparison site a liability, and it does nothing for broadband users. On-chain blocks only fit **settlement with broadband providers and commercial partners** (OTS's own backend, never customers) and the **agent/MCP** surface. Update 2026-10-11 (Ismail): stablecoin payout is OTS's backend for integrating with PROVIDERS, not customers.
 
 | Block | Fit for OTS | Status in this repo |
 |---|---|---|

@@ -1,6 +1,6 @@
 # onetouchswitch-bridge
 
-> Live Blockchain Lab blocks for onetouchswitch.com (UK broadband comparison, built on touch.grok.me): Chainlink GBP/USD, stablecoin payout rails, USDC payout cost in GBP, OFAC payout-address screening, healthy RPC, payout receipt checks, OTS sitemap search. Read-only, keyless, CORS JSON on GitHub Pages; JS client; MCP server.
+> One Touch Switch back-office settlement backend for broadband PROVIDERS and commercial partners, not customers. Never part of the consumer comparison journey. Built from live Blockchain Lab blocks: Chainlink GBP/USD, stablecoin settlement rails, USDC settlement cost in GBP, OFAC screening of provider/partner payout addresses, healthy RPC, settlement receipt checks, OTS sitemap search. Read-only and keyless. CORS JSON on GitHub Pages, a JS client and an MCP server.
 
 ## API (CORS *, refreshed every 3h)
 - [Catalogue](https://blockchains.github.io/onetouchswitch-bridge/v1/index.json)
